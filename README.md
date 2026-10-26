@@ -1,33 +1,56 @@
 # Melody
 
-Personal AI assistant for phone, Windows, and macOS.
+A personal AI assistant with a responsive web interface for phones, Windows, and macOS.
 
-## Current status
+**App:** https://melody-framber.bframber12.chatgpt.site (private; sign in with the owner's ChatGPT account).
 
-Repository initialized. Application implementation and deployment have not started. No executable app, live service, or account integrations are included yet.
+## Implemented
 
-## Intended capabilities
+- English/Spanish chat with OpenAI Responses API, using a server-side key.
+- Optional OpenAI web search with clickable sources.
+- Voice dictation through browser speech recognition, with recorded transcription fallback; replies can be read aloud by the device.
+- PNG/JPEG/WebP attachments under 2 MB and on-demand screen snapshots where the browser supports screen sharing.
+- Device-local conversation history, export, and clear-history controls. Images are excluded from persisted history.
+- Read-only GitHub repository metadata endpoint, requiring a server-side token and explicit repository allowlist.
+- Windows/macOS screenshot companion source in `desktop/`.
 
-- Voice and text conversations in English and Spanish.
-- A responsive interface for phones and computers.
-- Authorized Gmail, Outlook, and GitHub integrations.
-- Web search and browser assistance.
-- Desktop screen assistance and app control through a separately installed companion, with operating system permissions.
+## Current limitations
 
-These are planned capabilities, not implemented features. Safari support requires macOS. Available desktop and mobile controls will depend on platform permissions.
+The Personal OpenAI organization returned `credit_balance_exhausted` in the live check on October 26, 2026. The UI handles this as a billing error; AI replies require API credits. A ChatGPT subscription does not pay for API requests.
 
-## Credentials
+Gmail and Outlook are **not connected or implemented**. Their cards explain the missing provider OAuth setup and open the mail website. GitHub metadata code is implemented but no provider token has been configured or verified. ChatGPT account connections do not transfer to this app; the current Sites integration-discovery tool was unavailable.
 
-API keys must stay on the backend or in an operating system credential store. Never include credentials in browser code, commits, issues, screenshots, or documentation. Environment files, key files, and local user data are excluded by `.gitignore`. Ignore rules do not remove previously committed files.
+This version cannot click/type in other apps, autonomously control Safari, continuously watch the screen, or listen for a wake word in the background. Desktop helper source has been syntax-checked but not run on physical Windows/Mac hardware. Conversation history does not sync across devices. Voice availability varies by browser and device; iOS background microphone use is not provided.
 
-ChatGPT account connections do not automatically grant access to this application. Each integration requires its own supported authorization flow.
+## Development
 
-## Development milestones
+Requires Node 22.13+ and pnpm. The project uses React with Vinext and the supported Sites Cloudflare Workers integration.
 
-1. Build and verify AI text conversations with a server-side credential.
-2. Add mobile and desktop layouts, voice input, and spoken replies.
-3. Add account authorization and verify each integration independently.
-4. Build and test Windows/macOS companions for screen assistance and app control.
-5. Deploy the backend and prepare platform-specific releases.
+```sh
+pnpm install
+cp .env.example .dev.vars
+# Configure backend credentials locally; never commit .dev.vars.
+pnpm dev
+```
 
-GitHub hosts the source code. A secure backend deployment and desktop installation are separate delivery steps.
+Use the Sites tooling/environment for hosted preview and deployment. Normal GitHub Pages hosting cannot run this backend. The tracked `.openai/hosting.json` identifies the private deployment; it contains no secrets.
+
+```sh
+node --test tests/melody.test.mjs
+pnpm exec tsc --noEmit
+pnpm build
+```
+
+The server accepts same-origin API POST requests, bounds chat input and attachments, rejects user-supplied system roles, and sends OpenAI requests with `store: false`. No backend chat database is configured. Hosted access is owner-private through Sites. If deploying elsewhere, add authenticated access and production rate limits before exposing the paid API routes. Do not trust client-provided identity headers outside Sites.
+
+## Secrets and optional GitHub access
+
+Use the hosting platform's secret manager for `OPENAI_API_KEY`. Do not expose it through `NEXT_PUBLIC_*` values. The example file contains names only.
+
+To enable GitHub metadata reads, configure a fine-grained, read-only `GITHUB_TOKEN` scoped to the chosen repositories, and set `GITHUB_REPOSITORIES` to their comma-separated `owner/name` identifiers. The endpoint does not support repository writes or arbitrary provider URLs. Do not paste tokens into the chat UI.
+
+## Privacy
+
+Messages and supplied images go to OpenAI. Search invokes OpenAI's web search tool. Browser speech recognition may use the browser vendor's speech service; fallback recorded transcription uses OpenAI. Speech synthesis uses the device/browser voice service. Conversations remain in browser local storage until cleared; shared browser profiles can access them. No service worker caches private responses.
+
+See `desktop/README.md` for the optional screenshot helper. App controls, provider OAuth, cross-device sync, signed installers, and wake-word support remain future milestones.
