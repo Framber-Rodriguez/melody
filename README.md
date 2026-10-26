@@ -16,7 +16,7 @@ A personal AI assistant with a responsive web interface for phones, Windows, and
 
 ## Current limitations
 
-The Personal OpenAI organization returned `credit_balance_exhausted` in the live check on October 26, 2026. The UI handles this as a billing error; AI replies require API credits. A ChatGPT subscription does not pay for API requests.
+Melody now uses a dedicated key in Making Money / Default project, as requested by the owner. Both Personal and Making Money returned `credit_balance_exhausted` during live checks on October 26, 2026. The UI handles this as a billing error; AI replies require API credits in Making Money. A ChatGPT subscription does not pay for API requests. Melody and Making Money share organization credits and project limits. ChatGPT sign-in was verified in the hosted app.
 
 Gmail and Outlook are **not connected or implemented**. Their cards explain the missing provider OAuth setup and open the mail website. GitHub metadata code is implemented but no provider token has been configured or verified. ChatGPT account connections do not transfer to this app; the current Sites integration-discovery tool was unavailable.
 
