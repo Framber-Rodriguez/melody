@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import messagebox
 import webbrowser
 
-URL = 'https://melody-framber.bframber12.chatgpt.site'
+URL = 'https://framber-rodriguez.github.io/melody/'
 
 def main():
     root = tk.Tk()
