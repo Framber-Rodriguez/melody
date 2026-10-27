@@ -48,3 +48,6 @@ yarn-error.log*
 /.local/
 __pycache__/
 *.key
+
+# Locally supplied backend credentials
+.dev.vars*

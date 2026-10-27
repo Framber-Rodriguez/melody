@@ -1,56 +1,101 @@
 # Melody
 
-A personal AI assistant with a responsive web interface for phones, Windows, and macOS.
+A personal AI assistant project built with React, TypeScript, Vite, and a Node.js backend. Designed for phones, Windows, and macOS.
 
-**App:** https://melody-framber.bframber12.chatgpt.site (private; sign in with the owner's ChatGPT account).
+The primary project is this GitHub repository. The interface builds into `docs/` for GitHub Pages and opens without ChatGPT sign-in. The earlier ChatGPT Sites deployment is retained separately; it is not required to build or run this version.
 
-## Implemented
+## Quick start
 
-- English/Spanish chat with OpenAI Responses API, using a server-side key.
-- Optional OpenAI web search with clickable sources.
-- Voice dictation through browser speech recognition, with recorded transcription fallback; replies can be read aloud by the device.
-- PNG/JPEG/WebP attachments under 2 MB and on-demand screen snapshots where the browser supports screen sharing.
-- Device-local conversation history, export, and clear-history controls. Images are excluded from persisted history.
-- Read-only GitHub repository metadata endpoint, requiring a server-side token and explicit repository allowlist.
-- Windows/macOS screenshot companion source in `desktop/`.
-
-## Current limitations
-
-Melody now uses a dedicated key in Making Money / Default project, as requested by the owner. Both Personal and Making Money returned `credit_balance_exhausted` during live checks on October 26, 2026. The UI handles this as a billing error; AI replies require API credits in Making Money. A ChatGPT subscription does not pay for API requests. Melody and Making Money share organization credits and project limits. ChatGPT sign-in was verified in the hosted app.
-
-Gmail and Outlook are **not connected or implemented**. Their cards explain the missing provider OAuth setup and open the mail website. GitHub metadata code is implemented but no provider token has been configured or verified. ChatGPT account connections do not transfer to this app; the current Sites integration-discovery tool was unavailable.
-
-This version cannot click/type in other apps, autonomously control Safari, continuously watch the screen, or listen for a wake word in the background. Desktop helper source has been syntax-checked but not run on physical Windows/Mac hardware. Conversation history does not sync across devices. Voice availability varies by browser and device; iOS background microphone use is not provided.
-
-## Development
-
-Requires Node 22.13+ and pnpm. The project uses React with Vinext and the supported Sites Cloudflare Workers integration.
+Requires Node.js 22.13 or newer and pnpm (version declared in `package.json`).
 
 ```sh
 pnpm install
-cp .env.example .dev.vars
-# Configure backend credentials locally; never commit .dev.vars.
+pnpm build
+pnpm start
+```
+
+Open `http://127.0.0.1:8787`. The Node server serves the interface and API from the same origin. No ChatGPT account is needed.
+
+For interface development:
+
+```sh
 pnpm dev
 ```
 
-Use the Sites tooling/environment for hosted preview and deployment. Normal GitHub Pages hosting cannot run this backend. The tracked `.openai/hosting.json` identifies the private deployment; it contains no secrets.
+The Vite development interface and GitHub Pages do not include a server. Connect a separately running backend under Settings when needed.
+
+## GitHub Pages
+
+The committed `docs/` directory contains the generated static interface, with relative asset URLs so it works beneath the repository path. Publish through Settings → Pages → Deploy from a branch → `main` → `/docs`.
+
+On this account, GitHub currently requires upgrading or making the private repository public before Pages can be enabled. Publication remains pending owner approval to change repository visibility. No public Pages URL is claimed as live yet.
+
+After changing UI code, run `pnpm build` and commit the updated `docs/` files with the source changes. GitHub's branch-based Pages deployment publishes that built interface. No API keys belong in the Pages build, repository, or GitHub Pages configuration.
+
+## AI backend
+
+GitHub Pages serves static HTML/CSS/JavaScript. It does not execute the Node backend or store private API credentials. The page remains usable for design, voice dictation where supported, conversation management, and settings. AI responses, image analysis, search, and recorded-audio transcription need a backend.
+
+Configure the backend's environment locally or through a server's secret manager:
 
 ```sh
-node --test tests/melody.test.mjs
+cp .env.example .env.local
+# Edit .env.local locally. Never commit it.
+pnpm start
+```
+
+`OPENAI_API_KEY` belongs only on the backend. Melody currently uses `gpt-4.1-mini` by default. Both the Personal and Making Money organizations returned `credit_balance_exhausted` during checks on October 26, 2026; available API credits are still needed for OpenAI replies. Moving the interface to GitHub does not remove provider charges.
+
+### Connecting a remotely hosted backend
+
+- Keep backend traffic on HTTPS.
+- Set `HOST=0.0.0.0`, `PORT`, and a unique `MELODY_ACCESS_TOKEN` of at least 24 characters. A remotely bound server refuses to start without this access code.
+- Set `ALLOWED_ORIGINS` to the exact browser origins allowed to call it, such as your GitHub Pages origin. Wildcard origins are not accepted.
+- In Melody → Settings, enter the backend origin and its access code. Do not enter an AI provider API key in the browser.
+
+The backend URL is stored on that browser; the access code is stored in session storage for the tab session. The server enforces the code, origin checks, request-size bounds, and a basic per-address request limit. This is a personal-project access code, not a multi-user identity system. Use a proper authentication service before expanding access to multiple users.
+
+No new external backend host has been provisioned. The earlier Sites backend is private and requires ChatGPT sign-in; it is not automatically a cross-origin backend for GitHub Pages.
+
+## Implemented features
+
+- Responsive navy/violet/blue interface with original scalable Melody logo assets.
+- English/Spanish chat, optional web search with sources, image attachments, and supported-browser screen snapshots (with a connected backend).
+- Browser voice dictation and device spoken replies. Recorded transcription fallback needs the backend and provider access.
+- Local conversation history, export, and deletion. Images are not persisted in history.
+- Optional read-only GitHub metadata API with a server token and repository allowlist.
+- Windows/macOS screenshot helper source in `desktop/`.
+
+## Not yet implemented
+
+Gmail/Outlook authorization, email sending/reading, autonomous Safari or desktop app control, continuous screen watching, wake-word/background listening, cross-device conversation sync, signed Windows/Mac installers, and an unlimited free hosted AI service are not included. GitHub metadata reads require separate credentials and have not been connected. Existing ChatGPT app connections do not transfer to the independent app.
+
+## Validation
+
+```sh
+node --test tests/*.test.mjs
 pnpm exec tsc --noEmit
 pnpm build
 ```
 
-The server accepts same-origin API POST requests, bounds chat input and attachments, rejects user-supplied system roles, and sends OpenAI requests with `store: false`. No backend chat database is configured. Hosted access is owner-private through Sites. If deploying elsewhere, add authenticated access and production rate limits before exposing the paid API routes. Do not trust client-provided identity headers outside Sites.
+Tests cover request validation, role injection, image forwarding, quota errors, backend URL restrictions, static serving without ChatGPT, access-code checks, CORS restrictions, and remote-server configuration. The desktop helper has not been verified on physical Windows/Mac hardware.
 
-## Secrets and optional GitHub access
+## Source map
 
-Use the hosting platform's secret manager for `OPENAI_API_KEY`. Do not expose it through `NEXT_PUBLIC_*` values. The example file contains names only.
+| Path | Purpose |
+| --- | --- |
+| `app/page.tsx`, `app/globals.css` | Shared interface and visual design |
+| `pages/`, `vite.pages.config.ts` | Independent static application entry/build |
+| `docs/` | Generated GitHub Pages website |
+| `lib/browser-api.mjs` | Configurable backend connection |
+| `lib/melody.mjs` | Server-side AI request validation and provider calls |
+| `scripts/standalone-server.mjs` | Standalone Node server |
+| `public/brand/` | Original SVG logo assets |
+| `desktop/` | Optional screenshot helper source |
+| `app/api/`, `worker/`, `.openai/` | Earlier Sites deployment adapter |
 
-To enable GitHub metadata reads, configure a fine-grained, read-only `GITHUB_TOKEN` scoped to the chosen repositories, and set `GITHUB_REPOSITORIES` to their comma-separated `owner/name` identifiers. The endpoint does not support repository writes or arbitrary provider URLs. Do not paste tokens into the chat UI.
+The earlier deployment can be developed separately with `pnpm dev:sites`, built with `pnpm build:sites`, and run with `pnpm start:sites` in its supported hosting environment.
 
 ## Privacy
 
-Messages and supplied images go to OpenAI. Search invokes OpenAI's web search tool. Browser speech recognition may use the browser vendor's speech service; fallback recorded transcription uses OpenAI. Speech synthesis uses the device/browser voice service. Conversations remain in browser local storage until cleared; shared browser profiles can access them. No service worker caches private responses.
-
-See `desktop/README.md` for the optional screenshot helper. App controls, provider OAuth, cross-device sync, signed installers, and wake-word support remain future milestones.
+Messages/images are sent to the backend selected in Settings and its configured provider. OpenAI requests use `store: false`. Browser speech recognition and speech synthesis may use device/browser speech services. Conversations are stored in browser local storage until cleared; users sharing a browser profile can access them. No API keys or conversation data are embedded in the static build.
