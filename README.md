@@ -2,6 +2,8 @@
 
 A personal AI assistant project built with React, TypeScript, Vite, and a Node.js backend. Designed for phones, Windows, and macOS.
 
+**Open Melody:** https://framber-rodriguez.github.io/melody/
+
 The primary project is this GitHub repository. The interface builds into `docs/` for GitHub Pages and opens without ChatGPT sign-in. The earlier ChatGPT Sites deployment is retained separately; it is not required to build or run this version.
 
 ## Quick start
@@ -28,7 +30,7 @@ The Vite development interface and GitHub Pages do not include a server. Connect
 
 The committed `docs/` directory contains the generated static interface, with relative asset URLs so it works beneath the repository path. Publish through Settings → Pages → Deploy from a branch → `main` → `/docs`.
 
-On this account, GitHub currently requires upgrading or making the private repository public before Pages can be enabled. Publication remains pending owner approval to change repository visibility. No public Pages URL is claimed as live yet.
+The owner approved making this repository public. GitHub Pages is enabled from `main/docs`, and the initial deployment succeeded. The public interface opens without ChatGPT sign-in at https://framber-rodriguez.github.io/melody/.
 
 After changing UI code, run `pnpm build` and commit the updated `docs/` files with the source changes. GitHub's branch-based Pages deployment publishes that built interface. No API keys belong in the Pages build, repository, or GitHub Pages configuration.
 
