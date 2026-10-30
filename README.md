@@ -51,7 +51,7 @@ pnpm start
 ### Connecting a remotely hosted backend
 
 - Keep backend traffic on HTTPS.
-- Set `HOST=0.0.0.0`, `PORT`, and a unique `MELODY_ACCESS_TOKEN` of at least 24 characters. A remotely bound server refuses to start without this access code.
+- Set `HOST=0.0.0.0`, `PORT`, and a unique `SALOMON_ACCESS_TOKEN` of at least 24 characters. A remotely bound server refuses to start without this access code.
 - Set `ALLOWED_ORIGINS` to the exact browser origins allowed to call it, such as your GitHub Pages origin. Wildcard origins are not accepted.
 - In Salomon → Settings, enter the backend origin and its access code. Do not enter an AI provider API key in the browser.
 
@@ -90,7 +90,7 @@ Tests cover request validation, role injection, image forwarding, quota errors, 
 | `pages/`, `vite.pages.config.ts` | Independent static application entry/build |
 | `docs/` | Generated GitHub Pages website |
 | `lib/browser-api.mjs` | Configurable backend connection |
-| `lib/melody.mjs` | Server-side AI request validation and provider calls |
+| `lib/salomon.mjs` | Server-side AI request validation and provider calls |
 | `scripts/standalone-server.mjs` | Standalone Node server |
 | `public/brand/` | Original SVG logo assets |
 | `desktop/` | Optional screenshot helper source |

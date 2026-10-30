@@ -1,5 +1,5 @@
 import { env } from 'cloudflare:workers';
-import { AppError } from './melody.mjs';
+import { AppError } from './salomon.mjs';
 export const runtimeEnv = () => env as unknown as Record<string,string>;
 export function json(data:unknown,status=200) {return Response.json(data,{status,headers:{'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}});}
 export function requireOrigin(request:Request) {

@@ -3,11 +3,11 @@ import {readFile} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {timingSafeEqual} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
-import {respond,AppError,apiError} from '../lib/melody.mjs';
+import {respond,AppError,apiError} from '../lib/salomon.mjs';
 const root=resolve(fileURLToPath(new URL('../docs/',import.meta.url)));
 export function createSalomonServer(env=process.env){
- const host=env.HOST||'127.0.0.1';const token=env.MELODY_ACCESS_TOKEN||'';
- if(!['127.0.0.1','localhost','::1'].includes(host)&&token.length<24)throw new Error('Remote binding requires MELODY_ACCESS_TOKEN with at least 24 characters.');
+ const host=env.HOST||'127.0.0.1';const token=env.SALOMON_ACCESS_TOKEN||'';
+ if(!['127.0.0.1','localhost','::1'].includes(host)&&token.length<24)throw new Error('Remote binding requires SALOMON_ACCESS_TOKEN with at least 24 characters.');
  const allowed=(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean);
  const buckets=new Map();
  return http.createServer(async(req,res)=>{

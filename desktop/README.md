@@ -8,7 +8,7 @@ Install Python 3.12 or later with Tkinter support. In the repository root:
 
 ```sh
 python -m pip install -r desktop/requirements.txt
-python desktop/melody_desktop.py
+python desktop/salomon_desktop.py
 ```
 
 On macOS, use `python3` if required. Allow Screen Recording for Python/Terminal in System Settings when asked. If capturing does not work, use the system screenshot shortcut and upload the image with Salomon's paperclip.

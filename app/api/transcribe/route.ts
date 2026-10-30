@@ -1,5 +1,5 @@
 import {requireOrigin,runtimeEnv,json,failure} from '@/lib/api';
-import {AppError,apiError} from '@/lib/melody.mjs';
+import {AppError,apiError} from '@/lib/salomon.mjs';
 export async function POST(request:Request){try{
  requireOrigin(request);const key=runtimeEnv().OPENAI_API_KEY;if(!key)throw new AppError('Salomon’s server key is missing.',503);
  // Browser speech recognition is the primary voice path; this route supports bounded recorded audio.

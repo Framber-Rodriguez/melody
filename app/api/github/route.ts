@@ -1,5 +1,5 @@
 import {requireOrigin,runtimeEnv,json,failure,readBody} from '@/lib/api';
-import {AppError} from '@/lib/melody.mjs';
+import {AppError} from '@/lib/salomon.mjs';
 export async function POST(request:Request){try{
  requireOrigin(request);const token=runtimeEnv().GITHUB_TOKEN;if(!token)throw new AppError('GitHub is not connected. Add a repository-scoped GITHUB_TOKEN to the backend to enable repository reading.',409,'not_connected');
  const body=await readBody(request);const repo=body.repository;
