@@ -1,14 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
-<title>Melody — M monogram</title>
+<title>Salomon — crowned S emblem</title>
 <defs>
-<linearGradient id="plate" x1="8" y1="4" x2="88" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#192b50"/><stop offset=".55" stop-color="#191936"/><stop offset="1" stop-color="#10182d"/></linearGradient>
-<linearGradient id="edge" x1="14" y1="6" x2="76" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#7dd3fc" stop-opacity=".7"/><stop offset=".48" stop-color="#a78bfa" stop-opacity=".55"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".1"/></linearGradient>
-<linearGradient id="ribbon" x1="22" y1="25" x2="78" y2="76" gradientUnits="userSpaceOnUse"><stop stop-color="#67e8f9"/><stop offset=".5" stop-color="#a5b4fc"/><stop offset="1" stop-color="#c084fc"/></linearGradient>
-<filter id="halo"><feGaussianBlur stdDeviation="5"/></filter>
+<linearGradient id="plate" x1="8" y1="4" x2="88" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#25314e"/><stop offset=".55" stop-color="#171d35"/><stop offset="1" stop-color="#0d1526"/></linearGradient>
+<linearGradient id="edge" x1="14" y1="6" x2="76" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe4a4" stop-opacity=".85"/><stop offset=".48" stop-color="#c9a45d" stop-opacity=".5"/><stop offset="1" stop-color="#9ab6e8" stop-opacity=".25"/></linearGradient>
+<linearGradient id="gold" x1="27" y1="18" x2="70" y2="76" gradientUnits="userSpaceOnUse"><stop stop-color="#fff0c0"/><stop offset=".5" stop-color="#edca7d"/><stop offset="1" stop-color="#b88941"/></linearGradient>
+<linearGradient id="ink" x1="32" y1="46" x2="65" y2="81" gradientUnits="userSpaceOnUse"><stop stop-color="#f7e6b4"/><stop offset="1" stop-color="#c4a9eb"/></linearGradient>
+<filter id="halo"><feGaussianBlur stdDeviation="4"/></filter>
 </defs>
 <rect x="2" y="2" width="92" height="92" rx="28" fill="url(#plate)" stroke="url(#edge)" stroke-width="1.5"/>
-<path d="M25 65V33C25 30 27 29 29 32L48 56L67 32C69 29 71 30 71 33V65" stroke="#829aff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity=".36" filter="url(#halo)"/>
-<path d="M25 65V33C25 30 27 29 29 32L48 56L67 32C69 29 71 30 71 33V65" stroke="url(#ribbon)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M40 69Q48 76 56 69" stroke="url(#ribbon)" stroke-width="3.5" stroke-linecap="round"/>
-<path d="M76 15L78 20L83 22L78 24L76 29L74 24L69 22L74 20L76 15Z" fill="#bceaff"/>
+<path d="M28 29L36 37L48 21L60 37L68 29L64 44H32L28 29Z" fill="url(#gold)" fill-opacity=".13" stroke="url(#gold)" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M35 48H61" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"/>
+<circle cx="48" cy="19" r="2.2" fill="#ffedb7"/>
+<path d="M60 58C56 51 36 52 35 61C34 72 61 63 61 74C61 82 41 85 35 77" stroke="#eac880" stroke-width="8" stroke-linecap="round" opacity=".2" filter="url(#halo)"/>
+<path d="M59 58C55 52 37 53 36 61C35 70 60 64 60 74C60 82 42 83 36 77" stroke="url(#ink)" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M21 56H26M70 56H75" stroke="#be9d65" stroke-opacity=".6" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

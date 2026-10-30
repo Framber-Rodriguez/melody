@@ -4,7 +4,7 @@ export const runtimeEnv = () => env as unknown as Record<string,string>;
 export function json(data:unknown,status=200) {return Response.json(data,{status,headers:{'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}});}
 export function requireOrigin(request:Request) {
   const origin=request.headers.get('origin');
-  if (!origin || origin !== new URL(request.url).origin) throw new AppError('Request must come from Melody.',403,'forbidden');
+  if (!origin || origin !== new URL(request.url).origin) throw new AppError('Request must come from Salomon.',403,'forbidden');
 }
 export async function readBody(request:Request) {
   if (!request.headers.get('content-type')?.includes('application/json')) throw new AppError('Expected JSON.',415);

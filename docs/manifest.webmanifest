@@ -1,1 +1,1 @@
-{"name": "Melody Personal Assistant", "short_name": "Melody", "start_url": ".", "display": "standalone", "background_color": "#101214", "theme_color": "#101214", "icons": [{"src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}
+{"name": "Salomon Personal Assistant", "short_name": "Salomon", "start_url": ".", "display": "standalone", "background_color": "#080c18", "theme_color": "#080c18", "icons": [{"src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}

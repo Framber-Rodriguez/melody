@@ -5,7 +5,7 @@ import {timingSafeEqual} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {respond,AppError,apiError} from '../lib/melody.mjs';
 const root=resolve(fileURLToPath(new URL('../docs/',import.meta.url)));
-export function createMelodyServer(env=process.env){
+export function createSalomonServer(env=process.env){
  const host=env.HOST||'127.0.0.1';const token=env.MELODY_ACCESS_TOKEN||'';
  if(!['127.0.0.1','localhost','::1'].includes(host)&&token.length<24)throw new Error('Remote binding requires MELODY_ACCESS_TOKEN with at least 24 characters.');
  const allowed=(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean);
@@ -40,7 +40,7 @@ export function createMelodyServer(env=process.env){
      if(!env.GITHUB_TOKEN)throw new AppError('GitHub is not configured on this backend.',409);
      const repo=body.repository;if(typeof repo!=='string'||!/^[-\w.]+\/[-\w.]+$/.test(repo))throw new AppError('Use owner/repository format.');
      if(!(env.GITHUB_REPOSITORIES||'').split(',').map(s=>s.trim()).includes(repo))throw new AppError('Repository not allowed.',403);
-     const response=await fetch(`https://api.github.com/repos/${repo}`,{headers:{Authorization:`Bearer ${env.GITHUB_TOKEN}`,Accept:'application/vnd.github+json','User-Agent':'Melody'},signal:AbortSignal.timeout(15000)});if(!response.ok)throw new AppError('GitHub could not read this repository.',502);const data=await response.json();json({name:data.full_name,description:data.description,url:data.html_url,private:data.private,defaultBranch:data.default_branch,openIssues:data.open_issues_count,updatedAt:data.updated_at});return;
+     const response=await fetch(`https://api.github.com/repos/${repo}`,{headers:{Authorization:`Bearer ${env.GITHUB_TOKEN}`,Accept:'application/vnd.github+json','User-Agent':'Salomon'},signal:AbortSignal.timeout(15000)});if(!response.ok)throw new AppError('GitHub could not read this repository.',502);const data=await response.json();json({name:data.full_name,description:data.description,url:data.html_url,private:data.private,defaultBranch:data.default_branch,openIssues:data.open_issues_count,updatedAt:data.updated_at});return;
     }
     throw new AppError('Endpoint not found.',404);
    }
@@ -51,4 +51,4 @@ export function createMelodyServer(env=process.env){
   }catch(e){json({error:e instanceof AppError?e.message:e?.code==='ENOENT'?'Not found.':'The request could not finish.',code:e instanceof AppError?e.code:'request_failed'},e instanceof AppError?e.status:e?.code==='ENOENT'?404:502);}
  });
 }
-if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const port=Number(process.env.PORT||8787),host=process.env.HOST||'127.0.0.1';createMelodyServer().listen(port,host,()=>console.log(`Melody standalone server: http://${host}:${port}`));}
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const port=Number(process.env.PORT||8787),host=process.env.HOST||'127.0.0.1';createSalomonServer().listen(port,host,()=>console.log(`Salomon standalone server: http://${host}:${port}`));}

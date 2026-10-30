@@ -1,7 +1,7 @@
 import {requireOrigin,runtimeEnv,json,failure} from '@/lib/api';
 import {AppError,apiError} from '@/lib/melody.mjs';
 export async function POST(request:Request){try{
- requireOrigin(request);const key=runtimeEnv().OPENAI_API_KEY;if(!key)throw new AppError('Melody’s server key is missing.',503);
+ requireOrigin(request);const key=runtimeEnv().OPENAI_API_KEY;if(!key)throw new AppError('Salomon’s server key is missing.',503);
  // Browser speech recognition is the primary voice path; this route supports bounded recorded audio.
  if(Number(request.headers.get('content-length')||0)>6000000)throw new AppError('Recording is too large.',413);
  const bytes=await request.arrayBuffer();if(bytes.byteLength>6000000)throw new AppError('Recording is too large.',413);

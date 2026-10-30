@@ -1,8 +1,8 @@
-# Melody
+# Salomon
 
 A personal AI assistant project built with React, TypeScript, Vite, and a Node.js backend. Designed for phones, Windows, and macOS.
 
-**Open Melody:** https://framber-rodriguez.github.io/melody/
+**Open Salomon:** https://framber-rodriguez.github.io/melody/
 
 The primary project is this GitHub repository. The interface builds into `docs/` for GitHub Pages and opens without ChatGPT sign-in. The earlier ChatGPT Sites deployment is retained separately; it is not required to build or run this version.
 
@@ -46,14 +46,14 @@ cp .env.example .env.local
 pnpm start
 ```
 
-`OPENAI_API_KEY` belongs only on the backend. Melody currently uses `gpt-4.1-mini` by default. Both the Personal and Making Money organizations returned `credit_balance_exhausted` during checks on October 26, 2026; available API credits are still needed for OpenAI replies. Moving the interface to GitHub does not remove provider charges.
+`OPENAI_API_KEY` belongs only on the backend. Salomon currently uses `gpt-4.1-mini` by default. Both the Personal and Making Money organizations returned `credit_balance_exhausted` during checks on October 26, 2026; available API credits are still needed for OpenAI replies. Moving the interface to GitHub does not remove provider charges.
 
 ### Connecting a remotely hosted backend
 
 - Keep backend traffic on HTTPS.
 - Set `HOST=0.0.0.0`, `PORT`, and a unique `MELODY_ACCESS_TOKEN` of at least 24 characters. A remotely bound server refuses to start without this access code.
 - Set `ALLOWED_ORIGINS` to the exact browser origins allowed to call it, such as your GitHub Pages origin. Wildcard origins are not accepted.
-- In Melody → Settings, enter the backend origin and its access code. Do not enter an AI provider API key in the browser.
+- In Salomon → Settings, enter the backend origin and its access code. Do not enter an AI provider API key in the browser.
 
 The backend URL is stored on that browser; the access code is stored in session storage for the tab session. The server enforces the code, origin checks, request-size bounds, and a basic per-address request limit. This is a personal-project access code, not a multi-user identity system. Use a proper authentication service before expanding access to multiple users.
 
@@ -61,7 +61,7 @@ No new external backend host has been provisioned. The earlier Sites backend is 
 
 ## Implemented features
 
-- Responsive navy/violet/blue interface with original scalable Melody logo assets.
+- Responsive navy/violet/blue interface with original scalable Salomon logo assets.
 - English/Spanish chat, optional web search with sources, image attachments, and supported-browser screen snapshots (with a connected backend).
 - Browser voice dictation and device spoken replies. Recorded transcription fallback needs the backend and provider access.
 - Local conversation history, export, and deletion. Images are not persisted in history.
